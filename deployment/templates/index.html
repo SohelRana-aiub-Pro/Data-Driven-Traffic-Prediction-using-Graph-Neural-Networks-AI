@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f9f9f9; }
+        h1 { color: #2c3e50; }
+        .container { max-width: 900px; margin: auto; }
+        .endpoint { margin: 10px 0; }
+        .footer { margin-top: 40px; font-size: 0.9em; color: #555; }
+        textarea { width: 100%; height: 150px; }
+        button { margin-top: 10px; padding: 10px 20px; background: #2c3e50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #34495e; }
+        pre { background: #eee; padding: 10px; }
+        ol { background: #f0f0f0; padding: 15px; border-radius: 5px; }
+        canvas { margin-top: 20px; background: #fff; border: 1px solid #ccc; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let chart;
+
+        async function sendPrediction() {
+            const inputData = document.getElementById("jsonInput").value;
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: inputData
+                });
+                const result = await response.json();
+                document.getElementById("output").textContent = JSON.stringify(result, null, 2);
+
+                if (result.prediction) {
+                    const preds = result.prediction;
+                    const labels = preds.map((_, i) => "Step " + (i + 1));
+
+                    if (chart) chart.destroy();
+                    const ctx = document.getElementById("predictionChart").getContext("2d");
+                    chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Predicted Traffic Speeds',
+                                data: preds.map(v => Array.isArray(v) ? v[0] : v),
+                                borderColor: '#2c3e50',
+                                backgroundColor: 'rgba(44,62,80,0.2)',
+                                fill: true,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { display: true } },
+                            scales: {
+                                y: { title: { display: true, text: 'Speed' } },
+                                x: { title: { display: true, text: 'Time Steps' } }
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                document.getElementById("output").textContent = "Error: " + err;
+            }
+        }
+
+        function generateSampleData(expectedSize=325, timesteps=5) {
+            let data = [];
+            for (let t = 0; t < timesteps; t++) {
+                let row = [];
+                for (let i = 0; i < expectedSize; i++) {
+                    row.push(Number((Math.random() * 1).toFixed(2)));
+                }
+                data.push(row);
+            }
+            const sample = { "data": data };
+            document.getElementById("jsonInput").value = JSON.stringify(sample, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
+
+        <h2>🔎 How This App Works</h2>
+        <p>
+            The app takes traffic speed data from multiple road sensors (simulated in a synthetic dataset).  
+            It uses an advanced AI model called <b>ST-GCN</b> (Spatio-Temporal Graph Convolutional Network) to learn patterns over time and across locations.  
+            When you provide traffic data, the model predicts how speeds will change in the near future.
+        </p>
+
+        <h2>🌍 Why This App Is Useful</h2>
+        <ul>
+            <li><b>For commuters:</b> Helps anticipate traffic jams and plan better routes.</li>
+            <li><b>For city planners:</b> Provides insights to reduce congestion and improve road design.</li>
+            <li><b>For researchers:</b> Demonstrates how AI can learn from data and forecast real-world events.</li>
+            <li><b>For learners:</b> Shows how machine learning models can be deployed in a simple, interactive way.</li>
+        </ul>
+
+        <h2>🚗 Real-World Example: Rush Hour in Dhaka</h2>
+        <p>
+            Imagine it’s <b>7:47 AM in Dhaka</b>, and thousands of people are heading to work or school.  
+            Traffic speeds start to drop sharply on busy roads like Mirpur Road, Airport Road, and Gulshan Avenue.  
+            By feeding recent traffic data into this app, the AI can <b>predict how congestion will evolve</b> in the next 30–60 minutes.
+        </p>
+        <ul>
+            <li><b>Commuters:</b> Can check forecasts before leaving home and choose less congested routes.</li>
+            <li><b>Ride-sharing drivers:</b> Can anticipate slowdowns and adjust pickup times.</li>
+            <li><b>City planners:</b> Can use predictions to design better traffic light schedules or rerouting strategies.</li>
+        </ul>
+        <p>
+            This shows how the app isn’t just a technical demo — it’s a tool that could make <b>daily life smoother</b> in a busy city.
+        </p>
+
+        <h2>📖 Step-by-Step Guide</h2>
+        <ol>
+            <li><b>Enter Data:</b> Provide traffic speed values in JSON format.</li>
+            <li><b>Generate Sample:</b> Click <b>Generate Sample Data</b> to auto-fill valid input.</li>
+            <li><b>Predict:</b> Click <b>Predict</b> to see AI forecasts.</li>
+            <li><b>View Results:</b> Predictions will appear as numbers and a line chart below.</li>
+        </ol>
+
+        <h2>⚡ Interactive Demo</h2>
+        <textarea id="jsonInput"></textarea>
+        <br>
+        <button onclick="generateSampleData({{ expected_size }}, 5)">Generate Sample Data</button>
+        <button onclick="sendPrediction()">Predict</button>
+
+        <h3>🔮 Prediction Output</h3>
+        <pre id="output"></pre>
+
+        <h3>📊 Prediction Chart</h3>
+        <canvas id="predictionChart" width="800" height="400"></canvas>
+
+        <div class="footer">
+            <p>Powered by FastAPI & PyTorch | Synthetic Dataset</p>
+        </div>
+    </div>
+</body>
+</html>
