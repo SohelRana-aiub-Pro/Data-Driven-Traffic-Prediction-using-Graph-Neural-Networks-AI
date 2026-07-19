@@ -8,7 +8,8 @@ By training advanced AI models and deploying them in a user‑friendly web appli
 
 
 
-##Project  Overview
+Project  Overview;
+---------------------
 
 This project presents a **Data-Driven Traffic Prediction System** powered by **Graph Neural Networks (GNNs)** for forecasting traffic conditions. The system models road networks as graphs to capture both **spatial dependencies** between connected roads and **temporal patterns** in traffic flow.
 
@@ -18,8 +19,8 @@ The project demonstrates how Graph Neural Networks can learn complex relationshi
 
 ---
 
-## Features
-
+Features
+-----------------
 * Graph-based traffic network modeling
 * Synthetic (Generative) traffic dataset
 * Data preprocessing and normalization
@@ -53,47 +54,23 @@ The primary objectives of this project are to:
 | Data Processing            | Pandas, NumPy              |
 | Visualization              | Matplotlib, Seaborn        |
 | Machine Learning Utilities | Scikit-learn               |
-| Development Environment    | Jupyter Notebook / VS Code |
+| Development Environment    | VS Code |
+
+
 
 ---
 
-## Project Structure
 
-```text
-Data-Driven-Traffic-Prediction-using-Graph-Neural-Networks-AI/
-│
-├── data/
-│   ├── synthetic_dataset.csv
-│   └── processed_data/
-│
-├── notebooks/
-│   ├── data_preprocessing.ipynb
-│   ├── model_training.ipynb
-│   └── evaluation.ipynb
-│
-├── models/
-│   ├── gnn_model.py
-│   └── saved_models/
-│
-├── utils/
-│   ├── preprocessing.py
-│   ├── graph_builder.py
-│   └── metrics.py
-│
-├── results/
-│   ├── plots/
-│   └── predictions/
-│
-├── requirements.txt
-├── README.md
-└── LICENSE
-```
+ Project Structure
+---------------------
+For Implement in Local Server/PC , follow the 'Project code structure & Requirements Commands'
+<img width="642" height="431" alt="Project Code Structure" src="https://github.com/user-attachments/assets/ca6d9dd2-ffb1-43ac-b741-54542af1abe4" />
 
----
-
-## Dataset
-
-### Synthetic (Generative) Dataset
+ 
+ 
+ Dataset
+ ----------
+Synthetic (Generative) Dataset
 
 This project uses a **synthetically generated traffic dataset** rather than real-world traffic sensor data.
 
@@ -117,8 +94,8 @@ Using a synthetic dataset allows researchers and students to:
 
 ---
 
-## Methodology
-
+Methodology
+-------------------
 The workflow consists of the following stages:
 
 1. Generate synthetic traffic data.
@@ -132,8 +109,8 @@ The workflow consists of the following stages:
 
 ---
 
-## Graph Representation
-
+Graph Representation
+-----------------------------
 The transportation network is represented as a graph.
 
 * **Nodes:** Traffic sensors, intersections, or road segments
@@ -171,7 +148,9 @@ Synthetic Traffic Dataset
 
 ---
 
-## Evaluation Metrics
+Evaluation Metrics
+------------------
+
 
 Model performance is evaluated using standard regression metrics:
 
@@ -182,8 +161,8 @@ Model performance is evaluated using standard regression metrics:
 
 ---
 
-## Installation
-
+Installation
+------------------
 Clone the repository:
 
 ```bash
@@ -200,32 +179,14 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Project
-
+Running the Project
+-----------------------------
 Run the preprocessing pipeline:
-
-```bash
-python preprocessing.py
-```
-
-Train the model:
-
-```bash
-python train.py
-```
-
-Evaluate the model:
-
-```bash
-python evaluate.py
-```
-
-Or execute the Jupyter notebooks provided in the `notebooks/` directory.
 
 ---
 
-## Results
-
+Results
+----------------------------
 The Graph Neural Network successfully learns spatial and temporal traffic patterns from the synthetic dataset.
 
 Typical outputs include:
@@ -238,8 +199,8 @@ Typical outputs include:
 
 ---
 
-## Applications
-
+Applications
+------------------------
 Potential applications include:
 
 * Smart City infrastructure
@@ -252,8 +213,8 @@ Potential applications include:
 
 ---
 
-## Future Improvements
-
+Future Improvements
+--------------------------
 Potential enhancements include:
 
 * Integration with real-world traffic datasets (METR-LA, PEMS-BAY, etc.)
@@ -267,55 +228,33 @@ Potential enhancements include:
 
 ---
 
-## Acknowledgements
-
+Acknowledgements
+---------------------------
 This project was developed as a research and educational implementation to explore Graph Neural Networks for traffic forecasting using synthetic traffic data.
 
 ---
 
-## License
-
-This project is licensed under the MIT License.
-
----
 
 ## Author
 
 **Sohel Rana**
 
-* AI & Machine Learning Enthusiast
-* Researcher in Data Science and Graph Neural Networks
+* Digital Currency Investor & Technical Lead
 
 GitHub: https://github.com/SohelRana-aiub-Pro
 
 ---
 
-## Citation
+Citation
+--------------------
 
 If you use this project in your research or academic work, please cite this repository appropriately.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-For Implement in Local Server/PC , follow the 'Project code structure & Requirements Commands'
-
-
-<img width="642" height="431" alt="Project Code Structure" src="https://github.com/user-attachments/assets/ca6d9dd2-ffb1-43ac-b741-54542af1abe4" />
-
 Sample Predicted Outputs;
+---------------------------------
 <img width="758" height="563" alt="App-output 1" src="https://github.com/user-attachments/assets/66aedb0c-26fe-4cb3-b8ae-35cc0cbe581a" />
 
 
